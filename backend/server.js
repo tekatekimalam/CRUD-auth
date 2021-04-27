@@ -1,6 +1,22 @@
 const express = require("express");
+const mongoose = require("mongoose");
 
 const app = express();
+
+// Connect to database
+mongoose
+  .connect(
+    "mongodb+srv://maia:8nYPzAlfPpEidmx3@cluster0.wrlth.mongodb.net/book-app",
+    {
+      useFindAndModify: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useNewUrlParser: true,
+    },
+  )
+  .then(() => console.log("Database connected"))
+  .catch(err => console.log(err));
+
 // ******** ROUTES ********
 
 // Register routes
@@ -28,6 +44,10 @@ app.get("/api/users", (req, res) => {
   res.send("Fetching routes");
 });
 
-// Listening server
+// ******** SERVER ********
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}...`));
+
+// maia
+// 8nYPzAlfPpEidmx3
+// mongodb+srv://maia:<password>@cluster0.wrlth.mongodb.net/test
