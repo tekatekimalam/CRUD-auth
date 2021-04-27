@@ -1,21 +1,10 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const dbConnect = require("./config/dbConfig");
 
 const app = express();
 
 // Connect to database
-mongoose
-  .connect(
-    "mongodb+srv://maia:8nYPzAlfPpEidmx3@cluster0.wrlth.mongodb.net/book-app",
-    {
-      useFindAndModify: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useNewUrlParser: true,
-    },
-  )
-  .then(() => console.log("Database connected"))
-  .catch(err => console.log(err));
+dbConnect();
 
 // ******** ROUTES ********
 
