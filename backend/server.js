@@ -1,16 +1,27 @@
 const express = require("express");
 const dbConnect = require("./config/dbConfig");
+const User = require("./model/User");
 
 const app = express();
 
 // Connect to database
 dbConnect();
 
+// Middleware
+app.use(express.json());
+
 // ******** ROUTES ********
 
 // Register routes
-app.post("/api/users/register", (req, res) => {
-  res.send("Register routes");
+app.post("/api/users/register", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const user = await User.create({ name, email, password });
+
+    res.send(user);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 // Login routes
