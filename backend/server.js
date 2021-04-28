@@ -2,16 +2,23 @@ const express = require("express");
 
 const dbConnect = require("./config/dbConfig");
 const usersRoute = require("./routes/userRoute");
+const error = require("./middlewares/errorMiddlewareHandler");
+
 const app = express();
 
 // Connect to database
 dbConnect();
 
-// Middleware
+// ******** MIDDLEWARES ********
+
+// Json parser
 app.use(express.json());
 
-// ******** ROUTES ********
+// Routes
 app.use("/api/users", usersRoute);
+
+// Error handling
+app.use(error.errorMiddleWareHandler);
 
 // ******** SERVER ********
 const PORT = process.env.PORT || 5000;
