@@ -1,10 +1,12 @@
 const express = require("express");
+const dotenv = require("dotenv");
 
 const dbConnect = require("./config/dbConfig");
 const usersRoute = require("./routes/userRoute");
 const error = require("./middlewares/errorMiddlewareHandler");
 
 const app = express();
+dotenv.config();
 
 // Connect to database
 dbConnect();
@@ -13,6 +15,7 @@ dbConnect();
 
 // Json parser
 app.use(express.json());
+console.log(process.env.JWT_SECRET_KEY);
 
 // Routes
 app.use("/api/users", usersRoute);
