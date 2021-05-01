@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 
 const dbConnect = require("./config/dbConfig");
 const usersRoute = require("./routes/userRoute");
+const bookRoute = require("./routes/bookRoute");
 const error = require("./middlewares/errorMiddlewareHandler");
 
 const app = express();
@@ -15,10 +16,10 @@ dbConnect();
 
 // Json parser
 app.use(express.json());
-console.log(process.env.JWT_SECRET_KEY);
 
 // Routes
 app.use("/api/users", usersRoute);
+app.use("/api/books", bookRoute);
 
 // Error handling
 app.use(error.errorMiddleWareHandler);
