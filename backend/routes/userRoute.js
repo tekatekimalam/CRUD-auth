@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 
 const User = require("../model/User");
 const generateToken = require("../utils/generateToken");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 const usersRoute = express.Router();
 
@@ -49,7 +50,7 @@ usersRoute.post(
 );
 
 // Update routes
-usersRoute.put("/update", (req, res) => {
+usersRoute.put("/update", authMiddleware, (req, res) => {
   res.send("Update routes");
 });
 
@@ -59,8 +60,8 @@ usersRoute.delete("/:id", (req, res) => {
 });
 
 // Fetching routes
-usersRoute.get("/", (req, res) => {
-  res.send("Fetching routes");
+usersRoute.get("/", authMiddleware, (req, res) => {
+  res.send(req.user);
 });
 
 module.exports = usersRoute;
